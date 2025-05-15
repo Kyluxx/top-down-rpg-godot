@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://bb2iadrebfc18"]
+[gd_scene load_steps=30 format=4 uid="uid://bb2iadrebfc18"]
 
 [ext_resource type="Script" uid="uid://bwmcy2ftlshdx" path="res://scripts/world.gd" id="1_7r4gi"]
 [ext_resource type="Texture2D" uid="uid://bahnakicfcodo" path="res://art/tilesets/plains.png" id="1_i7141"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://62dqvdnu35se" path="res://art/objects/chest_02.png" id="5_e3hyu"]
 [ext_resource type="Texture2D" uid="uid://b7180mx242kvo" path="res://art/objects/chest_01.png" id="6_q5onr"]
 [ext_resource type="Texture2D" uid="uid://uk3sutep7li0" path="res://art/tilesets/fences.png" id="7_jhx03"]
+[ext_resource type="PackedScene" uid="uid://bwo8k2r8v6ku" path="res://scenes/text_input.tscn" id="9_7r4gi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o8fc1"]
 texture = ExtResource("1_i7141")
@@ -437,8 +438,10 @@ shape = SubResource("RectangleShape2D_w7kh3")
 position = Vector2(587.5, -3.80954)
 shape = SubResource("RectangleShape2D_e3hyu")
 
-[node name="IngameMenu" type="CanvasLayer" parent="." groups=["world"]]
+[node name="IngameMenu" type="CanvasLayer" parent="."]
 visible = false
+
+[node name="TextInput" parent="IngameMenu" instance=ExtResource("9_7r4gi")]
 
 [connection signal="toggled" from="Menu/Button" to="." method="_on_button_toggled"]
 [connection signal="text_changed" from="Menu/NameInput" to="." method="_on_line_edit_text_changed"]
