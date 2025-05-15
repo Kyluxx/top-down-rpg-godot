@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://bb2iadrebfc18"]
+[gd_scene load_steps=23 format=4 uid="uid://bb2iadrebfc18"]
 
 [ext_resource type="Script" uid="uid://bwmcy2ftlshdx" path="res://scripts/world.gd" id="1_7r4gi"]
 [ext_resource type="Texture2D" uid="uid://bahnakicfcodo" path="res://art/tilesets/plains.png" id="1_i7141"]
@@ -307,29 +307,6 @@ sources/1 = SubResource("TileSetAtlasSource_oo54l")
 sources/2 = SubResource("TileSetAtlasSource_kpybi")
 sources/3 = SubResource("TileSetAtlasSource_ctatt")
 
-[sub_resource type="LabelSettings" id="LabelSettings_4mrxx"]
-font_size = 48
-outline_size = 5
-outline_color = Color(0.298039, 0.0666667, 1, 1)
-shadow_size = 6
-shadow_color = Color(0.184314, 0.960784, 0.352941, 0.870588)
-
-[sub_resource type="LabelSettings" id="LabelSettings_7r4gi"]
-outline_size = 4
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4mrxx"]
-size = Vector2(10, 639.524)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7r4gi"]
-size = Vector2(31, 633.333)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w7kh3"]
-size = Vector2(1211, 20.9524)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e3hyu"]
-size = Vector2(1205, 22.8571)
-
 [node name="world" type="Node2D"]
 y_sort_enabled = true
 scale = Vector2(1, 1.05)
@@ -366,8 +343,13 @@ tile_set = SubResource("TileSet_xgqkh")
 _spawnable_scenes = PackedStringArray("uid://7s0b5xqx6cf5")
 spawn_path = NodePath("..")
 
+[node name="Label" type="Label" parent="."]
+offset_left = 423.0
+offset_top = 127.619
+offset_right = 608.0
+offset_bottom = 197.619
+
 [node name="Menu" type="CanvasLayer" parent="."]
-follow_viewport_enabled = true
 
 [node name="ColorRect" type="ColorRect" parent="Menu" groups=["world"]]
 offset_right = 1164.0
@@ -375,70 +357,19 @@ offset_bottom = 660.0
 color = Color(0, 0, 0, 0.729412)
 
 [node name="Button" type="Button" parent="Menu"]
-offset_left = 523.0
-offset_top = 375.0
-offset_right = 629.0
-offset_bottom = 423.0
+offset_left = 522.0
+offset_top = 358.0
+offset_right = 628.0
+offset_bottom = 406.0
 toggle_mode = true
 text = "JOIN"
 
-[node name="NameInput" type="LineEdit" parent="Menu"]
-offset_left = 524.0
-offset_top = 329.0
-offset_right = 627.0
-offset_bottom = 360.0
+[node name="LineEdit" type="LineEdit" parent="Menu"]
+offset_left = 523.0
+offset_top = 307.0
+offset_right = 626.0
+offset_bottom = 338.0
 placeholder_text = "Your name"
-max_length = 10
-
-[node name="Title" type="Label" parent="Menu"]
-offset_left = 426.0
-offset_top = 218.0
-offset_right = 731.0
-offset_bottom = 285.0
-text = "Virtual Lands"
-label_settings = SubResource("LabelSettings_4mrxx")
-
-[node name="Desc" type="Label" parent="Menu"]
-offset_left = 521.0
-offset_top = 274.0
-offset_right = 628.0
-offset_bottom = 297.0
-text = "v1.0.0.alpha-0"
-label_settings = SubResource("LabelSettings_7r4gi")
-
-[node name="MenuCamera" type="Camera2D" parent="."]
-position = Vector2(573, 326.667)
-scale = Vector2(0.5, 0.5)
-zoom = Vector2(0.5, 0.5)
-
-[node name="Border" type="Node2D" parent="."]
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Border"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/StaticBody2D"]
-position = Vector2(-5, 309.762)
-shape = SubResource("RectangleShape2D_4mrxx")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="Border"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/StaticBody2D2"]
-position = Vector2(1168.5, 315.714)
-shape = SubResource("RectangleShape2D_7r4gi")
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="Border"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/StaticBody2D3"]
-position = Vector2(578.5, 634.286)
-shape = SubResource("RectangleShape2D_w7kh3")
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="Border"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/StaticBody2D4"]
-position = Vector2(587.5, -3.80954)
-shape = SubResource("RectangleShape2D_e3hyu")
-
-[node name="IngameMenu" type="CanvasLayer" parent="." groups=["world"]]
-visible = false
 
 [connection signal="toggled" from="Menu/Button" to="." method="_on_button_toggled"]
-[connection signal="text_changed" from="Menu/NameInput" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_changed" from="Menu/LineEdit" to="." method="_on_line_edit_text_changed"]

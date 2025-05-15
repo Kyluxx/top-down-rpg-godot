@@ -1,7 +1,8 @@
-[gd_scene load_steps=55 format=3 uid="uid://7s0b5xqx6cf5"]
+[gd_scene load_steps=60 format=3 uid="uid://7s0b5xqx6cf5"]
 
 [ext_resource type="Script" uid="uid://dic6ildl5eg5j" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dkin8rlo0mbbs" path="res://art/characters/player.png" id="2_qhqgy"]
+[ext_resource type="FontFile" uid="uid://dw0vo1lqc3no0" path="res://art/fonts/LEMONMILK-Medium.otf" id="3_dqkch"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dqkch"]
 atlas = ExtResource("2_qhqgy")
@@ -413,12 +414,85 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
+size = Vector2(8.4, 4)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_g2els"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:animation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("AnimatedSprite2D:frame")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("AnimatedSprite2D:speed_scale")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("AnimatedSprite2D:centered")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("AnimatedSprite2D:flip_h")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("Username:text")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqgy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g2els"]
+font = ExtResource("3_dqkch")
+font_size = 6
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Player" type="CharacterBody2D" groups=["player", "world"]]
+y_sort_enabled = true
+scale = Vector2(2.5, 2.5)
+collision_layer = 3
+collision_mask = 131
 script = ExtResource("1_g2els")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(2.98023e-08, -0.8)
 sprite_frames = SubResource("SpriteFrames_apa73")
-animation = &"death"
-frame_progress = 0.423675
+animation = &"front_idle"
+offset = Vector2(-0.5, -15)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_g2els")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.35, 0.35)
+limit_left = 0
+limit_top = 0
+limit_right = 1152
+limit_bottom = 648
+limit_smoothed = true
+rotation_smoothing_enabled = true
+editor_draw_limits = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_g2els")
+
+[node name="Detection_Area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection_Area"]
+position = Vector2(0.400002, -8)
+shape = SubResource("RectangleShape2D_qhqgy")
+
+[node name="Username" type="Label" parent="." groups=["world"]]
+z_index = 1
+offset_left = -44.8
+offset_top = -32.4
+offset_right = 45.2
+offset_bottom = -15.4
+scale = Vector2(1.00137, 1)
+text = "null"
+label_settings = SubResource("LabelSettings_g2els")
+horizontal_alignment = 1
+vertical_alignment = 1

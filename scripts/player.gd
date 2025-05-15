@@ -1,16 +1,47 @@
 extends CharacterBody2D
 
-const speed := 100
+@export var speed := 150
 var current_direction := "none"
+
+func _enter_tree():
+	set_multiplayer_authority(int(str(name)))
 
 
 func _ready():
+	if !is_multiplayer_authority():
+		return
+		
+	var rng = RandomNumberGenerator.new()
+	var raw_screen = get_viewport().size - Vector2i(100, 100)
+	print(raw_screen)
+	var max_attempts = 50
+
+	for i in range(max_attempts):
+		var pos_x = rng.randi_range(0, raw_screen.x)
+		var pos_y = rng.randi_range(0, raw_screen.y)
+		position = Vector2(pos_x, pos_y)
+		print(position)
+
+
+		# force update posisi biar Area2D bisa cek tabrakan
+		$Detection_Area.global_position = position
+		await get_tree().process_frame
+
+		if $Detection_Area.get_overlapping_bodies().is_empty():
+			break  # posisi aman, keluar dari loop
+
 	$AnimatedSprite2D.play("front_idle")
 
 
 func _physics_process(delta: float) -> void:
-	player_movement(delta)
-	print(current_direction)
+	if !is_multiplayer_authority():
+		$Camera2D.set_enabled(false)
+		return
+		
+	if Global.is_joined:
+		$Username.text = Global.username
+		$Camera2D.set_enabled(true) 
+		player_movement(delta)
 
 func player_movement(_delta):
 	# get_vector(left, right, up, down)
@@ -61,27 +92,3 @@ func play_animation(movement):
 			anim.play("back_walk")
 		elif movement == 0:
 			anim.play("back_idle")
-
-
-#const SPEED = 300.0
-#const JUMP_VELOCITY = -400.0
-#
-#
-#func _physics_process(delta: float) -> void:
-	## Add the gravity.
-	#if not is_on_floor():
-		#velocity += get_gravity() * delta
-#
-	## Handle jump.
-	#if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		#velocity.y = JUMP_VELOCITY
-#
-	## Get the input direction and handle the movement/deceleration.
-	## As good practice, you should replace UI actions with custom gameplay actions.
-	#var direction := Input.get_axis("ui_left", "ui_right")
-	#if direction:
-		#velocity.x = direction * SPEED
-	#else:
-		#velocity.x = move_toward(velocity.x, 0, SPEED)
-#
-	#move_and_slide()

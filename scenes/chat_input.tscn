@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxo1xorxabkpi"]
+
+[sub_resource type="GDScript" id="GDScript_m53lm"]
+script/source = "extends Control
+
+
+func _on_button_pressed() -> void:
+	self.set_visible(false)
+	var idk = get_tree().get_rpc_config()
+	print(idk)
+	$TextEdit.text = \"\"
+"
+
+[node name="ChatInput" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_m53lm")
+
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 4.0
+offset_right = 188.0
+offset_bottom = 79.0
+placeholder_text = "Ketik Chat Disini"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 193.0
+offset_top = 4.0
+offset_right = 260.0
+offset_bottom = 35.0
+text = "Kirim"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
