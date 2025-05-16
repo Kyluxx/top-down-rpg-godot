@@ -10,7 +10,9 @@ func _enter_tree():
 func _ready():
 	if !is_multiplayer_authority():
 		return
-		
+	
+	$Camera2D.make_current()
+	
 	var rng = RandomNumberGenerator.new()
 	var raw_screen = get_viewport().size - Vector2i(100, 100)
 	print(raw_screen)

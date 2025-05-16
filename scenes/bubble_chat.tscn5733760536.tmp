@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://g1771540l3qt"]
+
+[ext_resource type="Script" uid="uid://cq3ui5d64hmn" path="res://scenes/bubble_chat.gd" id="1_wfnea"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wfnea"]
+bg_color = Color(0.0156863, 0.0431373, 0.0627451, 0.584314)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="SystemFont" id="SystemFont_wfnea"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pv1ol"]
+font = SubResource("SystemFont_wfnea")
+font_size = 5
+
+[node name="bubble_chat" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wfnea")
+
+[node name="Panel" type="Panel" parent="."]
+clip_contents = true
+layout_mode = 0
+offset_left = -20.0
+offset_top = -19.0
+offset_right = 20.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wfnea")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 2
+offset_right = 40.0
+offset_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+label_settings = SubResource("LabelSettings_pv1ol")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -404,7 +404,7 @@ offset_left = 521.0
 offset_top = 274.0
 offset_right = 628.0
 offset_bottom = 297.0
-text = "v1.0.1.alpha-0"
+text = "v1.0.0.alpha-0"
 label_settings = SubResource("LabelSettings_7r4gi")
 
 [node name="MenuCamera" type="Camera2D" parent="."]
